@@ -18,258 +18,287 @@ unsigned long lastWatchdog = 0;
 const unsigned long WATCHDOG_TIMEOUT = 2500; // 2.5 segundos de gracia
 
 // HTML, CSS y JS embebidos con diseño Premium
-const char INDEX_HTML[] PROGMEM = R"=====("
+const char INDEX_HTML[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>Wemos RC Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --bg: #0f172a;
-            --glass: rgba(30, 41, 59, 0.7);
-            --primary: #22d3ee;
-            --secondary: #10b981;
-            --danger: #ef4444;
-            --text: #f8fafc;
-        }
+      :root {
+        --bg: #0f172a;
+        --glass: rgba(30, 41, 59, 0.7);
+        --primary: #22d3ee;
+        --secondary: #10b981;
+        --danger: #ef4444;
+        --text: #f8fafc;
+      }
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top right, #1e293b, #0f172a);
-            color: var(--text);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-        }
+      body {
+        font-family: "Inter", sans-serif;
+        background: radial-gradient(circle at top right, #1e293b, #0f172a);
+        color: var(--text);
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        overflow: hidden;
+        font-size: 20px;
+      }
 
-        .header {
-            margin-bottom: 2rem;
-            text-align: center;
-        }
+      .header {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
 
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            color: var(--primary);
-            text-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
-            margin: 0;
-        }
+      h1 {
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+        color: var(--primary);
+        text-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
+        margin: 0;
+      }
 
-        .status {
-            font-size: 0.8rem;
-            color: var(--secondary);
-            margin-top: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
+      .status {
+        font-size: 0.8rem;
+        color: var(--secondary);
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--secondary);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--secondary);
-            animation: pulse 2s infinite;
-        }
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--secondary);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--secondary);
+        animation: pulse 2s infinite;
+      }
 
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
+      @keyframes pulse {
+        0% {
+          opacity: 0.4;
         }
-
-        .control-panel {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        50% {
+          opacity: 1;
         }
-
-        .direction-controls {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
+        100% {
+          opacity: 0.4;
         }
+      }
 
-        .btn {
-            padding: 1.5rem;
-            border: none;
-            border-radius: 16px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            touch-action: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
+      .control-panel {
+        background: var(--glass);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        padding: 2rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        width: 90%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
 
-        .btn:active {
-            transform: scale(0.95);
-            filter: brightness(1.2);
-        }
+      .direction-controls {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
 
-        .fwd { background: linear-gradient(135deg, #10b981, #059669); }
-        .bwd { background: linear-gradient(135deg, #3b82f6, #2563eb); }
-        .stop { background: linear-gradient(135deg, #ef4444, #dc2626); }
+      .btn {
+        padding: 1.5rem;
+        border: none;
+        border-radius: 16px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
 
-        .slider-container {
-            margin-top: 1rem;
-        }
+      .btn:active {
+        transform: scale(0.95);
+        filter: brightness(1.2);
+      }
 
-        .slider-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
+      .fwd {
+        background: linear-gradient(135deg, #10b981, #059669);
+      }
+      .bwd {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+      }
+      .stop {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+      }
 
-        input[type=range] {
-            -webkit-appearance: none;
-            width: 100%;
-            background: transparent;
-        }
+      .slider-container {
+        margin-top: 1rem;
+      }
 
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 8px;
-            background: #334155;
-            border-radius: 4px;
-        }
+      .slider-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.8rem;
+        font-size: 0.9rem;
+        color: #94a3b8;
+      }
 
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            background: var(--primary);
-            cursor: pointer;
-            margin-top: -8px;
-            box-shadow: 0 0 15px var(--primary);
-        }
+      input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        background: transparent;
+      }
 
-        .footer {
-            margin-top: 2rem;
-            color: #64748b;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+      input[type="range"]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8px;
+        background: #334155;
+        border-radius: 4px;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+        margin-top: -8px;
+        box-shadow: 0 0 15px var(--primary);
+      }
+
+      .footer {
+        margin-top: 2rem;
+        color: #64748b;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <h1>WEMOS RC PRO</h1>
-        <div class="status">
-            <div class="status-dot"></div>
-            SISTEMA ONLINE
-        </div>
+      <h1>WEMOS RC PRO</h1>
+      <div class="status">
+        <div class="status-dot"></div>
+        SISTEMA ONLINE
+      </div>
     </div>
 
     <div class="control-panel">
-        <div class="direction-controls">
-            <button class="btn fwd" 
-                onpointerdown="event.preventDefault(); sendCommand('/forward')" 
-                onpointerup="sendCommand('/stop')" 
-                onpointerleave="sendCommand('/stop')"
-                onpointercancel="sendCommand('/stop')">
-                AVANZAR ▲
-            </button>
-            
-            <button class="btn stop" onclick="sendCommand('/stop')">
-                PARAR 🛑
-            </button>
-            
-            <button class="btn bwd" 
-                onpointerdown="event.preventDefault(); sendCommand('/backward')" 
-                onpointerup="sendCommand('/stop')" 
-                onpointerleave="sendCommand('/stop')"
-                onpointercancel="sendCommand('/stop')">
-                RETROCEDER ▼
-            </button>
-        </div>
+      <div class="direction-controls">
+        <button
+          class="btn fwd"
+          onpointerdown="event.preventDefault(); sendCommand('/forward')"
+          onpointerup="sendCommand('/stop')"
+          onpointerleave="sendCommand('/stop')"
+          onpointercancel="sendCommand('/stop')"
+        >
+          AVANZAR ▲
+        </button>
 
-        <div class="slider-container">
-            <div class="slider-label">
-                <span>POTENCIA</span>
-                <span id="speedVal">78%</span>
-            </div>
-            <input type="range" min="0" max="255" value="200" oninput="updateSpeed(this.value)">
+        <button class="btn stop" onclick="sendCommand('/stop')">
+          PARAR 🛑
+        </button>
+
+        <button
+          class="btn bwd"
+          onpointerdown="event.preventDefault(); sendCommand('/backward')"
+          onpointerup="sendCommand('/stop')"
+          onpointerleave="sendCommand('/stop')"
+          onpointercancel="sendCommand('/stop')"
+        >
+          RETROCEDER ▼
+        </button>
+      </div>
+
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>POTENCIA</span>
+          <span id="speedVal">78%</span>
         </div>
+        <input
+          type="range"
+          min="0"
+          max="255"
+          value="200"
+          oninput="updateSpeed(this.value)"
+        />
+      </div>
     </div>
 
-    <div class="footer">UDONE Engine &bull; Motor Control v1</div>
+    <div class="footer">UDONE Engine &bull; Motor Control v2.1</div>
 
     <script>
-        let lastSpeedSend = 0;
-        let speedTimeout;
+      let lastSpeedSend = 0;
+      let speedTimeout;
 
-        function sendCommand(path) {
-            console.log('Sending:', path);
-            fetch(path).catch(err => console.error('Fetch Error:', err));
+      function sendCommand(path) {
+        console.log("Sending:", path);
+        fetch(path).catch((err) => console.error("Fetch Error:", err));
+      }
+
+      function updateSpeed(val) {
+        const percent = Math.round((val / 255) * 100);
+        document.getElementById("speedVal").innerText = percent + "%";
+
+        // Throttling: Enviar máximo cada 100ms
+        clearTimeout(speedTimeout);
+        const now = Date.now();
+        if (now - lastSpeedSend > 100) {
+          sendCommand("/speed?val=" + val);
+          lastSpeedSend = now;
+        } else {
+          speedTimeout = setTimeout(() => {
+            sendCommand("/speed?val=" + val);
+            lastSpeedSend = Date.now();
+          }, 100);
         }
+      }
 
-        function updateSpeed(val) {
-            const percent = Math.round((val / 255) * 100);
-            document.getElementById('speedVal').innerText = percent + '%';
-            
-            // Throttling: Enviar máximo cada 100ms
-            clearTimeout(speedTimeout);
-            const now = Date.now();
-            if (now - lastSpeedSend > 100) {
-                sendCommand('/speed?val=' + val);
-                lastSpeedSend = now;
-            } else {
-                speedTimeout = setTimeout(() => {
-                    sendCommand('/speed?val=' + val);
-                    lastSpeedSend = Date.now();
-                }, 100);
-            }
-        }
+      // Prevent context menu on long press
+      window.oncontextmenu = function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+      };
 
-        // Prevent context menu on long press
-        window.oncontextmenu = function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
-        };
-
-        // Watchdog Heartbeat: Enviar señal de vida cada 1 segundo
-        setInterval(() => {
-            fetch('/ping').catch(() => {});
-        }, 1000);
+      // Watchdog Heartbeat: Enviar señal de vida cada 1 segundo
+      setInterval(() => {
+        fetch("/ping").catch(() => {});
+      }, 1000);
     </script>
-</body>
+  </body>
 </html>
 )=====";
 
