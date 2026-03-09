@@ -39,6 +39,17 @@ Un sistema de control remoto premium para vehículos RC basado en **Wemos D1 Min
 
 El código incluye un sistema de "latido" (heartbeat). La interfaz web envía un ping cada segundo. Si el Wemos no recibe una señal durante 2.5 segundos mientras el coche está en movimiento, detendrá los motores inmediatamente para evitar colisiones accidentales por pérdida de señal.
 
+## 🛠️ Desarrollo (Opcional)
+
+Si deseas modificar la interfaz web sin lidiar con el archivo `.ino`, puedes usar el script de sincronización:
+
+1.  Edita el archivo `index.html` (usa Live Server o simplemente ábrelo en tu navegador favorito).
+2.  Para aplicar los cambios al código de Arduino, abre una terminal y ejecuta:
+    ```bash
+    python sync_web.py
+    ```
+    _Esto actualizará automáticamente la variable `INDEX_HTML` dentro de `main.ino`._
+
 ---
 
 _Desarrollado con UDONE Engine &bull; Motor Control v1_
