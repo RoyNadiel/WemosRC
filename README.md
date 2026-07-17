@@ -1,10 +1,10 @@
 # Wemos RC Pro 🚗💨
 
-Un sistema de control remoto premium para vehículos RC basado en **Wemos D1 Mini (ESP8266)**. Este proyecto permite controlar motores DC a través de una interfaz web moderna y receptiva, con medidas de seguridad integradas.
+Un sistema de control remoto para vehículos RC basado en **Wemos D1 Mini (ESP8266)**. Este proyecto permite controlar motores DC a través de una interfaz web moderna y receptiva, con medidas de seguridad integradas.
 
 ## ✨ Características
 
-- **Diseño Premium**: Interfaz web con estética futurista (Glassmorphism), fuentes modernas (Orbitron & Inter) y animaciones suaves.
+- **Diseño**: Interfaz web con estética futurista (Glassmorphism), fuentes modernas (Orbitron & Inter) y animaciones suaves.
 - **Control en Tiempo Real**: Botones táctiles de alta respuesta para avance, retroceso y parada.
 - **Control de Velocidad**: Deslizador PWM ajustable para una aceleración precisa.
 - **Watchdog de Seguridad**: El sistema detiene automáticamente el motor si se pierde la conexión con el controlador por más de 2.5 segundos.
